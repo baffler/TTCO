@@ -100,6 +100,7 @@ namespace TransparentTwitchChatWPF
     using System.Windows.Navigation;
     using System.Runtime.InteropServices.ComTypes;
     using NAudio.SoundFont;
+    using System.Reflection;
 
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -1017,7 +1018,22 @@ namespace TransparentTwitchChatWPF
 
                 if (updateInfo.ReleasesToApply.Count > 0)
                 {
-                    if (MessageBox.Show($"TTCO (Current Version: v{updateInfo.CurrentlyInstalledVersion.Version}\nNew Version: v{updateInfo.FutureReleaseEntry.Version} is available. Would you like to update now?",
+                    string currentVersion = "0.0.0";
+
+                    if (updateInfo.CurrentlyInstalledVersion == null)
+                    {
+                        Version version = Assembly.GetExecutingAssembly().GetName().Version;
+                        currentVersion = $"{version.Major}.{version.Minor}.{version.Build}";
+                    }
+                    else
+                        currentVersion = updateInfo.CurrentlyInstalledVersion.Version.ToString();
+
+                    currentVersion = string.IsNullOrEmpty(currentVersion) ? "0.0.0" : currentVersion;
+
+                    string nextVersion = updateInfo.FutureReleaseEntry.Version.ToString();
+                    nextVersion = string.IsNullOrEmpty(nextVersion) ? "0.0.0" : nextVersion;
+
+                    if (MessageBox.Show($"New Version [v{nextVersion}] is available.\n(Currently on [v{currentVersion}])\n\nWould you like to update now?",
                         "New Version Available",
                         MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.Yes) == MessageBoxResult.Yes)
                     {
