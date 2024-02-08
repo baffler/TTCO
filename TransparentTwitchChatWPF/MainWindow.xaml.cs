@@ -1010,10 +1010,9 @@ namespace TransparentTwitchChatWPF
 
         private async void CheckForUpdateAsync()
         {
-            updateManager = await UpdateManager.GitHubUpdateManager(@"https://github.com/baffler/TTCO");
-
             try
             {
+                updateManager = await UpdateManager.GitHubUpdateManager(@"https://github.com/baffler/TTCO");
                 var updateInfo = await updateManager.CheckForUpdate();
 
                 if (updateInfo.ReleasesToApply.Count > 0)
