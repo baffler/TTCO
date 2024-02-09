@@ -16,6 +16,9 @@ using Squirrel;
 /*
  * v1.0.0
  * - Added Squirrel for installing and updating the app
+ * > Option to disable update checks from the message
+ * > When closing the app, this error is thrown:
+ * >> System.Threading.AbandonedMutexException: Leaked a Mutex! at Squirrel.SingleGlobalInstance.Finalize()
  * 
  * v0.10.0
  * > Lock down app if no runtime installed
